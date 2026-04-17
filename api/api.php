@@ -6,16 +6,7 @@ switch ($method) {
     case 'GET':
         try {
             $stmt = $pdo->query("SELECT az, nev, tipus, uzemel FROM hajok");
-            $rows = $stmt->fetchAll();
-
-            $readData = array_map(function ($row) {
-                return [
-                    'id' => (int)$row['az'],
-                    'name' => $row['nev'],
-                    'type' => $row['tipus'],
-                    'active' => (bool)$row['uzemel']
-                ];
-            }, $rows);
+            $readData = $stmt->fetchAll();
             http_response_code(200);
             echo json_encode(['status' => 'Read success!', "readData" => $readData]);
         } catch (PDOException $e) {
@@ -46,7 +37,7 @@ switch ($method) {
     case 'PUT':
         try {
             $data = json_decode(file_get_contents("php://input"), true);
-            if (!isset($data['name'], $data['type'], $data['active'])) {
+            if (!isset($data['name'], $data['type'], $data['active'], $data['id'])) {
                 http_response_code(400);
                 echo json_encode([
                     'status' => 'Create error!',
