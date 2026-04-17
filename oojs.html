@@ -3,8 +3,32 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Web programozás-1 Előadás Házi feladat</title>
+    <title>Web programozás-1 Előadás Házi feladat | OOJS feladat</title>
     <link rel="stylesheet" type="text/css" href="css/style.css">
+    <style>
+        .info {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+
+        #gameArea {
+            width: 800px;
+            height: 500px;
+            margin: 0 auto;
+            border: 2px solid #1d3557;
+            background: white;
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .coin {
+            position: absolute;
+            font-size: 32px;
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -23,7 +47,10 @@
         </aside>
         <div id="content">
             <h2>OOJS feladat - COIN gyűjtés</h2>
-            
+            <div class="info">Szabályok: 😊: +1;😢: -1 </div>
+            <div class="info" id="scoreBoard">Pontszám: 0</div>
+            <div id="gameArea"></div>
+            <script src="js/oojs.js"></script>
         </div>
     </div>
     <footer>
