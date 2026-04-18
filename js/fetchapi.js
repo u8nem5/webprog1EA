@@ -56,7 +56,16 @@ function readFormData() {
 }
 
 function insertNewRecord(data) {
-    ships.push({ "nev": data.name, "tipus": data.type, "uzemel": data.active });
+    fetch(api, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+
+        body: JSON.stringify(data)
+    })
+        .then(res => res.json())
+        .then(data => {
+            showTable();
+        });
     showTable();
 }
 
@@ -72,26 +81,23 @@ function edit(id) {
     document.getElementById("name").value = ship.nev;
     document.getElementById("type").value = ship.tipus;
     document.getElementById("active").checked = ship.uzemel;
-    selectedId = id;  
+    selectedId = id;
     document.getElementById("ship-form").scrollIntoView({
         behavior: "smooth"
     });
 }
 
 function updateRecord(formData) {
- 
-        formData.id = selectedId;
-        fetch(api, {
+
+    formData.id = selectedId;
+    fetch(api, {
         method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        
+        headers: { "Content-Type": "application/json" },
+
         body: JSON.stringify(formData)
-        })
-        
+    })
         .then(res => res.json())
         .then(data => {
-      
-     
             showTable();
         });
 }
@@ -99,12 +105,12 @@ function del(id) {
     if (confirm('Biztosan törlöd?')) {
         fetch(api, {
             method: "DELETE",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({'id': id})
-            })
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 'id': id })
+        })
             .then(res => res.json())
             .then(data => {
-            showTable();
+                showTable();
             });
     }
 }
